@@ -55,7 +55,7 @@ function isSpace(value) {
 
 function isNumber(value) {
     if (value != '0') {
-        if (parseInt(value)) {
+        if (parseFloat(value)) {
             return true;
         } else {
             return false;
