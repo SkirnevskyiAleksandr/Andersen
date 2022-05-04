@@ -7,10 +7,10 @@ function returnValue() {
         const SECOND_INPUT = (prompt('Please input the second number', ''));
 
         if (isValid(SECOND_INPUT)) {
-            let firstValue = Number(FIRST_INPUT);
-            let secondValue = Number(SECOND_INPUT);
+            const FIRST_VALUE = Number(FIRST_INPUT);
+            const SECOND_VALUE = Number(SECOND_INPUT);
 
-            console.log(`${firstValue + secondValue}, ${firstValue / secondValue}`)
+            console.log(`${FIRST_VALUE + SECOND_VALUE}, ${FIRST_VALUE / SECOND_VALUE}`)
         } else {
             return console.log('Некорректный ввод!');
         }

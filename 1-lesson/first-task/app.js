@@ -5,10 +5,10 @@ function returnValue() {
         SECOND_INPUT = prompt('Please input the second number', "")
 
     if (isValid(FIRST_INPUT) && isValid(SECOND_INPUT)) {
-        let firstValue = Number(FIRST_INPUT);
-        let secondValue = Number(SECOND_INPUT);
+        const FIRST_VALUE = Number(FIRST_INPUT);
+        const SECOND_VALUE = Number(SECOND_INPUT);
 
-        return console.log(firstValue.toString(secondValue));
+        return console.log(FIRST_VALUE.toString(SECOND_VALUE));
     } else {
         return console.log('Некорректный ввод!');
     }
