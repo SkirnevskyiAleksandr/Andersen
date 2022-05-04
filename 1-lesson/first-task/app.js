@@ -1,12 +1,12 @@
 
 'use strict'
 function returnValue() {
-    let firstInput = prompt('Please input the first number', ""),
-        secondInput = prompt('Please input the second number', "")
+    const FIRST_INPUT = prompt('Please input the first number', ""),
+        SECOND_INPUT = prompt('Please input the second number', "")
 
-    if (isValid(firstInput) && isValid(secondInput)) {
-        let firstValue = Number(firstInput);
-        let secondValue = Number(secondInput);
+    if (isValid(FIRST_INPUT) && isValid(SECOND_INPUT)) {
+        let firstValue = Number(FIRST_INPUT);
+        let secondValue = Number(SECOND_INPUT);
 
         return console.log(firstValue.toString(secondValue));
     } else {

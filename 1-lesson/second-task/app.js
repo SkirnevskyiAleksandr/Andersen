@@ -1,14 +1,14 @@
 'use strict'
 
 function returnValue() {
-    let firstInput = (prompt('Please input the first number', ''));
+    const FIRST_INPUT = (prompt('Please input the first number', ''));
 
-    if (isValid(firstInput)) {
-        let secondInput = (prompt('Please input the second number', ''));
+    if (isValid(FIRST_INPUT)) {
+        const SECOND_INPUT = (prompt('Please input the second number', ''));
 
-        if (isValid(secondInput)) {
-            let firstValue = Number(firstInput);
-            let secondValue = Number(secondInput);
+        if (isValid(SECOND_INPUT)) {
+            let firstValue = Number(FIRST_INPUT);
+            let secondValue = Number(SECOND_INPUT);
 
             console.log(`${firstValue + secondValue}, ${firstValue / secondValue}`)
         } else {
