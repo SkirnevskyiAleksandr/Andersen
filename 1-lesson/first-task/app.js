@@ -1,62 +1,34 @@
 
 'use strict'
 function returnValue() {
-    const FIRST_INPUT = prompt('Please input the first number', ""),
-        SECOND_INPUT = prompt('Please input the second number', "")
+    const firstInput = prompt('Please input the first number', "");
+    const secondInput = prompt('Please input the second number', "");
 
-    if (isValid(FIRST_INPUT) && isValid(SECOND_INPUT)) {
-        const FIRST_VALUE = Number(FIRST_INPUT);
-        const SECOND_VALUE = Number(SECOND_INPUT);
-
-        return console.log(FIRST_VALUE.toString(SECOND_VALUE));
-    } else {
+    if (!isValid(firstInput) || !isValid(secondInput)) {
         return console.log('Некорректный ввод!');
     }
+
+    const firstValue = Number(firstInput);
+    const secondValue = Number(secondInput);
+
+    return console.log(firstValue.toString(secondValue));
 };
 
 returnValue();
 
 
 function isValid(value) {
-    if (!isNull(value)) {
-        if (!isSpace(value)) {
-            if (isNumber(value)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
+    return !isNull(value) && !isSpace(value) && isNumber(value)
 };
 
 function isNull(value) {
-    if (value === null) {
-        return true;
-    } else {
-        return false;
-    }
+    return value === null;
 };
 
 function isSpace(value) {
-    if (value.includes(' ')) {
-        return true;
-    } else {
-        return false;
-    }
+    return value.includes(' ')
 };
 
 function isNumber(value) {
-    if (value != '0') {
-        if (parseFloat(value)) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
+    return (value === '0') || (parseFloat(value))
 };
