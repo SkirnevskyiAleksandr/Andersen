@@ -1,24 +1,9 @@
 'use strict'
-const OBJ = {
-    name: 'Alex',
-    surname: 'Skirnevskyi',
-    age: 33,
-    address: {
-        city: 'New-York',
-        house: 10,
-        apartment: 3,
-        phone: function () {
-            console.log('1')
-        }
-    },
-    arr: [1, 2, 3, 4],
-    isNull: null
-
-};
-
+//first task
 function makeObjectDeepCopy(obj) {
-    const objCopy = {};
-    const objKeys = Object.keys(obj);
+    const objCopy = {}
+    const objKeys = Object.keys(obj)
+
     objKeys.map((key) => {
 
         if (!isObject(obj[key]) && !isFunction(obj[key])) {
@@ -28,6 +13,9 @@ function makeObjectDeepCopy(obj) {
             objCopy[key] = obj[key];
 
         } else if (isArray(obj[key])) {
+            obj[key].map((item) => {
+                makeObjectDeepCopy(item)
+            })
             objCopy[key] = [...obj[key]];
         }
 
@@ -44,11 +32,11 @@ function makeObjectDeepCopy(obj) {
 
 function isObject(data) {
     return typeof (data) === 'object'
-};
+}
 
 function isFunction(data) {
     return typeof (data) === 'function'
-};
+}
 
 function isArray(data) {
     return Array.isArray(data)
@@ -56,8 +44,8 @@ function isArray(data) {
 
 function isNull(data) {
     return data === null
-};
+}
 
-console.log(makeObjectDeepCopy(OBJ))
+
 
 
