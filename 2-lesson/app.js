@@ -1,136 +1,141 @@
 'use strict'
 
-//first task
+// first task
 
-// function makeObjectDeepCopy(obj) {
-//     const objCopy = {};
-//     const objKeys = Object.keys(obj);
+function makeObjectDeepCopy(obj) {
+    if (!isObject(obj)) {
+        return console.log('not an object');
+    }
 
-//     objKeys.map((key) => {
-//         if (!isObject(obj[key]) && !isFunction(obj[key])) {
-//             objCopy[key] = obj[key];
+    function deepCopy(obj) {
+        const objCopy = {};
+        const objKeys = Object.keys(obj);
 
-//         } else if (isFunction(obj[key])) {
-//             objCopy[key] = obj[key];
+        objKeys.map((key) => {
+            if (!isObject(obj[key]) || isNull(obj[key])) {
+                objCopy[key] = obj[key];
+            }
+            else if (isArray(obj[key])) {
+                obj[key].map((item) => {
+                    deepCopy(item);
+                });
+                objCopy[key] = [...obj[key]];
+            }
+            else if (isObject(obj[key]) && !isArray(obj[key])) {
+                objCopy[key] = deepCopy(obj[key]);
+            }
+        })
 
-//         } else if (isArray(obj[key])) {
-//             obj[key].map((item) => {
-//                 makeObjectDeepCopy(item);
-//             })
-//             objCopy[key] = [...obj[key]];
-//         }
+        return objCopy;
+    }
 
-//         else if (isNull(obj[key])) {
-//             objCopy[key] = obj[key];
-//         }
+    return deepCopy(obj);
+};
 
-//         else if (isObject(obj[key]) && !isArray(obj[key])) {
-//             objCopy[key] = makeObjectDeepCopy(obj[key]);
-//         }
-//     })
-//     return objCopy;
-// };
+function isObject(data) {
+    return typeof (data) === 'object';
+};
 
-// function isObject(data) {
-//     return typeof (data) === 'object';
-// };
+function isFunction(data) {
+    return typeof (data) === 'function';
+};
 
-// function isFunction(data) {
-//     return typeof (data) === 'function';
-// };
+function isArray(data) {
+    return Array.isArray(data);
+};
 
-// function isArray(data) {
-//     return Array.isArray(data);
-// };
-
-// function isNull(data) {
-//     return data === null;
-// };
-
+function isNull(data) {
+    return data === null;
+};
 
 // second task
-// const arr = [1, 2, 3, 4, 5, 6, 7]
-// function selectFromInterval(arr, firstInterval, lastInterval) {
-//     if (isValidArguments(arr, firstInterval, lastInterval)) {
-//         return interval(arr, firstInterval, lastInterval);
-//     }
-//     throw new Error('not valid arguments');
-// };
-// console.log(selectFromInterval(arr, 2, 7))
 
-// function isValidArguments(arr, firstInterval, lastInterval) {
-//     return (
-//         isArray(arr) && itemIsNumber(arr)
-//         && isNumber(firstInterval) && isNumber(lastInterval)
-//     )
-// };
+function selectFromInterval(arr, firstInterval, lastInterval) {
+    if (isValidArguments(arr, firstInterval, lastInterval)) {
+        return interval(arr, firstInterval, lastInterval);
+    }
 
-// function interval(arr, firstInterval, lastInterval) {
-//     return (
-//         arr.filter((item) => {
-//             if (isLassThan(firstInterval, lastInterval)) {
-//                 return item <= lastInterval && item >= firstInterval
-//             }
-//             return item >= lastInterval && item <= firstInterval
-//         })
-//     );
-// };
+    throw new Error('not valid arguments');
+};
 
-// function isArray(data) {
-//     return Array.isArray(data);
-// };
 
-// function isLassThan(first, last) {
-//     return first < last;
-// };
+function isValidArguments(arr, firstInterval, lastInterval) {
+    return (
+        isArray(arr) && itemIsNumber(arr)
+        && isNumber(firstInterval) && isNumber(lastInterval)
+    );
+};
 
-// function isNumber(data) {
-//     return typeof (data) === 'number';
-// };
+function interval(arr, firstInterval, lastInterval) {
+    return (
+        arr.filter((item) => {
+            if (toCompere(firstInterval, lastInterval)) {
+                return item <= lastInterval && item >= firstInterval;
+            }
+            return item >= lastInterval && item <= firstInterval;
+        })
+    );
+};
 
-// function itemIsNumber(arr) {
-//     if (arr.length > 0) {
-//         return arr.every((item) => {
-//             return isNumber(item)
-//         });
-//     };
-// };
+function isArray(data) {
+    return Array.isArray(data);
+};
+
+function toCompere(first, last) {
+    return first < last;
+};
+
+function isNumber(data) {
+    return typeof (data) === 'number';
+};
+
+function itemIsNumber(arr) {
+    if (arr.length > 0) {
+
+        return arr.every((item) => {
+
+            return isNumber(item);
+        });
+    };
+};
 
 // third task
 
-const myIterable = { from: 1, to: 7 };
+const myIterable = { from: 1, to: 10 };
 
 myIterable[Symbol.iterator] = function () {
+    if (!isValid(myIterable.from, myIterable.to)) {
+        throw new Error('Error!');
+    }
+
     return {
-        current: this.from,
-        last: this.to,
+        current: myIterable.from,
+        last: myIterable.to,
         next() {
-            if (isValid(myIterable.from, myIterable.to)) {
-                while (!biggerThan(this.current, this.last)) {
-                    return {
-                        done: false,
-                        value: this.current++
-                    };
-                }
-                return { done: true };
-            } else {
-                throw new Error('Ошибка!');
+            while (!toCompere(this.current, this.last)) {
+                return {
+                    done: false,
+                    value: this.current++
+                };
             }
+
+            return { done: true };
         }
     };
-}
+};
 
 function isValid(firstValue, lastValue) {
-    return !biggerThan(firstValue, lastValue) && isNumber(firstValue, lastValue);
+    return !toCompere(firstValue, lastValue) && isNumber(firstValue, lastValue);
 };
 
-function biggerThan(firstValue, lastValue) {
+function toCompere(firstValue, lastValue) {
     return firstValue > lastValue;
 };
+
 function isNumber(firstValue, lastValue) {
     return typeof (firstValue) === 'number' && typeof (lastValue) === 'number';
 };
 
 for (let key of myIterable) {
     console.log(key);
-};
+}
