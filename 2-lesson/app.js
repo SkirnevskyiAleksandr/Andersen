@@ -27,7 +27,7 @@ function makeObjectDeepCopy(obj) {
         })
 
         return objCopy;
-    }
+    };
 
     return deepCopy(obj);
 };
@@ -51,11 +51,10 @@ function isNull(data) {
 // second task
 
 function selectFromInterval(arr, firstInterval, lastInterval) {
-    if (isValidArguments(arr, firstInterval, lastInterval)) {
-        return interval(arr, firstInterval, lastInterval);
+    if (!isValidArguments(arr, firstInterval, lastInterval)) {
+        throw new Error('not valid arguments');
     }
-
-    throw new Error('not valid arguments');
+    return interval(arr, firstInterval, lastInterval);
 };
 
 
@@ -91,9 +90,7 @@ function isNumber(data) {
 
 function itemIsNumber(arr) {
     if (arr.length > 0) {
-
         return arr.every((item) => {
-
             return isNumber(item);
         });
     };
@@ -125,10 +122,10 @@ myIterable[Symbol.iterator] = function () {
 };
 
 function isValid(firstValue, lastValue) {
-    return !toCompere(firstValue, lastValue) && isNumber(firstValue, lastValue);
+    return !toCompare(firstValue, lastValue) && isNumber(firstValue, lastValue);
 };
 
-function toCompere(firstValue, lastValue) {
+function toCompare(firstValue, lastValue) {
     return firstValue > lastValue;
 };
 
