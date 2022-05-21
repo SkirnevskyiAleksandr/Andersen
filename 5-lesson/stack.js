@@ -44,6 +44,7 @@ class Stack {
         }
 
         const temp = this.last;
+
         this.last = this.last.prevNode;
         this.currentSize--;
 
