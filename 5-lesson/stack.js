@@ -15,6 +15,7 @@ class Stack {
         if (!Number.isFinite(length)) {
             throw new Error(`you should enter valid number!`);
         }
+
         this.length = length;
         this.currentSize = null;
         this.last = null;
@@ -80,8 +81,8 @@ class Stack {
 
         const newStack = new Stack(iterable.length);
 
-        for (let i = 0; i < iterable.length; i++) {
-            newStack.push(iterable[i])
+        for (let item of iterable) {
+            newStack.push(item)
         }
 
         return newStack;
