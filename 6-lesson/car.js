@@ -1,4 +1,5 @@
 'use strict'
+
 class Car {
     #brand = 'no brand yet';
     #model = 'no model yet';
