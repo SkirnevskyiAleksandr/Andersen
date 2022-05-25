@@ -137,6 +137,7 @@ class Car {
     }
 
 }
+
 class Validator {
     constructor(value, bigger, smaller) {
         this.value = value;
@@ -180,6 +181,7 @@ class Validator {
         }
     }
 }
+
 class ErrorText {
     static isRan = `the car has already started`;
     static isNotRan = `the car hasn't ran yet`;
