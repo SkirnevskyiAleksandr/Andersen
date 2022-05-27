@@ -1,0 +1,101 @@
+main{
+    position: absolute;
+    height: 500px;
+    width:400px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #E8F5FF;
+    border: 5px solid rgb(3, 77, 151);
+    border-radius: 10px;
+}
+
+.links{
+    width:100%;
+    display: flex;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.links a {
+    text-decoration: none;
+}
+
+.output{
+    width:100%;
+    height: 20%;
+    box-sizing: border-box;
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+    justify-content: space-around;
+    padding: 10px;
+    word-break:break-word;
+    word-break: break-all;
+    background-color: #FFFFFF;
+    border: 5px solid #A6A6A6;
+    border-radius: 10px;
+}
+
+.output .previous-operand{
+    color:#A6A6A6;
+    font-size: 1.5rem;
+}
+
+.output .current-operand {
+    color: black;
+    font-size: 2.5rem;
+}
+.row-wrapper{
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+}
+.buttons{
+    width: 100%;
+    height: 70%;
+    margin-top: 10px;
+    box-sizing:border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+.btn{
+    width: 65px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#AFAEAE;
+    border:1px solid black;
+    border-radius:5px;
+}
+
+.btn:hover{
+    color:rgb(240, 118, 11);
+    cursor: pointer;
+}
+.number{
+    background-color:#EEEEEE;
+    color: #004D9C;
+    font-size: 35px;
+}
+
+.c{
+    background-color:#E40101;
+    color:#fff;
+    font-size: 40px;
+}
+.operator{
+    color:#fff;
+    font-size: 25px;
+}
+.equal{
+    background-color:#005DB2;
+}
