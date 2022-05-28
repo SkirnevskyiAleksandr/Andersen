@@ -1,14 +1,9 @@
 'use strict'
 
 const buttonsWrapper = document.querySelector('.buttons');
-const numberButtons = document.querySelectorAll('[data-number]');
-const operationButtons = document.querySelectorAll('[data-operation]');
-const equalButton = document.querySelector('[data-equals]');
-const deleteButton = document.querySelector('[data-delete]');
-const allClearButton = document.querySelector('[data-all-clear]');
 const previousOperandTextElement = document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
-const signChangeOperator = document.querySelector('[data-change-number]');
+const bookMark = document.querySelector('[data-bookmark]');
 
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
@@ -20,11 +15,11 @@ class Calculator {
     clear() {
         this.currentOperand = '';
         this.previousOperand = '';
-        this.operation = undefined;
+        this.operation = '';
     }
 
     delete() {
-        this.currentOperand = this.currentOperand.toString().slice(0, -1)
+        this.currentOperand = this.currentOperand.slice(0, -1)
     }
 
     appendNumber(number) {
@@ -32,16 +27,24 @@ class Calculator {
             return;
         }
 
-        this.currentOperand = this.currentOperand.toString() + number.toString();
+        if (number === '.') {
+            this.currentOperand = this.currentOperand + number
+            return;
+        }
+
+        this.currentOperand = this.currentOperand + number;
+        this.currentOperand = parseFloat(Number(this.currentOperand).toFixed(8)).toString();
     }
+
+
 
     chooseOperation(operation) {
         if (this.currentOperand === '') {
             return;
         }
 
-        if (TouchEvent.previousOperand !== "") {
-            this.compute()
+        if (this.previousOperand !== '') {
+            this.compute();
         }
 
         this.operation = operation;
@@ -50,10 +53,14 @@ class Calculator {
     }
 
     compute() {
-        let computation
-        const prev = parseFloat(this.previousOperand)
-        const current = parseFloat(this.currentOperand)
-        if (isNaN(prev) || isNaN(current)) return
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+
+        if (Number.isNaN(prev) || Number.isNaN(current)) {
+            return;
+        }
+
         switch (this.operation) {
             case '+':
                 computation = prev + current
@@ -77,9 +84,9 @@ class Calculator {
                 return;
         }
 
-        this.currentOperand = computation
-        this.operation = undefined
-        this.previousOperand = ''
+        this.currentOperand = computation.toFixed(8);
+        this.operation = '';
+        this.previousOperand = '';
     }
 
     signChange() {
@@ -157,3 +164,43 @@ buttonsWrapper.addEventListener('click', (event) => {
         return;
     }
 })
+
+bookMark.addEventListener('click', (event) => {
+    if (localStorage.key(0) !== 'bookMark') {
+        event.preventDefault()
+        localStorage.setItem('bookMark', document.location)
+        bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`
+
+        return;
+    }
+
+    bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`;
+    window.open(localStorage.getItem('bookMark'));
+})
+
+if (localStorage.key(0) === 'bookMark') {
+    bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`;
+}
+
+
+//bookmarks
+
+// function bookmark(title, url) {
+//     if (window.sidebar) {
+//         // Firefox
+//         window.sidebar.addPanel(title, url, '');
+//     }
+//     else if (window.opera && window.print) {
+//         // Opera
+//         var elem = document.createElement('a');
+//         elem.setAttribute('href', url);
+//         elem.setAttribute('title', title);
+//         elem.setAttribute('rel', 'sidebar');
+//         elem.click(); //this.title=document.title;
+//     }
+//     else if (document.all) {
+//         // ie
+//         window.external.AddFavorite(url, title);
+//     }
+// }
+
