@@ -31,6 +31,19 @@ h4{
     text-decoration: none;
 }
 
+.copy{
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+.copy:hover{
+cursor: pointer;
+}
+
+.copy:active{
+background-color:red;
+}
+
 .output{
     width:100%;
     height: 20%;

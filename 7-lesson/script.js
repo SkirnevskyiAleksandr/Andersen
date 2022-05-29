@@ -6,7 +6,7 @@ const currentOperandTextElement = document.querySelector('[data-current-operand]
 const bookMark = document.querySelector('[data-bookmark]');
 const memoryOutput = document.querySelector('[data-memory-output]');
 const memoryBufferBtn = document.querySelector('[data-memory-buffer]');
-
+const copyBuffer = document.querySelector('[data-copy-buffer]');
 
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
@@ -235,3 +235,7 @@ bookMark.addEventListener('click', (event) => {
 if (localStorage.key(0) === 'bookMark') {
     bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`;
 }
+
+copyBuffer.addEventListener('click', () => {
+    navigator.clipboard.writeText(currentOperandTextElement.innerText);
+})
