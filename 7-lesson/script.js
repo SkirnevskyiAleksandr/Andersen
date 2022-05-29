@@ -5,7 +5,8 @@ const previousOperandTextElement = document.querySelector('[data-previous-operan
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
 const bookMark = document.querySelector('[data-bookmark]');
 const memoryOutput = document.querySelector('[data-memory-output]');
-const memoryBufferBtn = document.querySelector('[data-memory-buffer]')
+const memoryBufferBtn = document.querySelector('[data-memory-buffer]');
+
 
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
@@ -44,11 +45,9 @@ class Calculator {
             return;
         }
 
-        this.currentOperand = this.currentOperand + number
-        this.currentOperand = parseFloat(Number(this.currentOperand).toFixed(8)).toString()
+        this.currentOperand = this.currentOperand + number;
+        this.currentOperand = parseFloat(Number(this.currentOperand).toFixed(8)).toString();
     }
-
-
 
     chooseOperation(operation) {
         if (this.currentOperand === '') {
@@ -89,14 +88,14 @@ class Calculator {
                     break;
                 }
 
-                computation = prev / current
+                computation = prev / current;
                 break;
 
             default:
                 return;
         }
 
-        this.currentOperand = parseFloat(Number(computation).toFixed(8)).toString()
+        this.currentOperand = parseFloat(Number(computation).toFixed(8)).toString();
         this.operation = '';
         this.previousOperand = '';
     }
@@ -118,13 +117,12 @@ class Calculator {
         this.currentOperandTextElement.innerText = this.currentOperand;
 
         if (this.operation !== null) {
-            this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`
+            this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`;
         }
     }
 }
 
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
-
 
 buttonsWrapper.addEventListener('click', (event) => {
     if (event.target.hasAttribute('data-number')) {
@@ -186,14 +184,14 @@ buttonsWrapper.addEventListener('click', (event) => {
         const tempStorage = localStorage.getItem('1');
 
         if (tempStorage === null) {
-            localStorage.setItem('1', currentOperandTextElement.innerText)
-            memoryOutput.innerText = localStorage.getItem('1')
+            localStorage.setItem('1', currentOperandTextElement.innerText);
+            memoryOutput.innerText = localStorage.getItem('1');
 
             return;
         }
 
-        localStorage.setItem('1', Number(tempStorage) + Number(currentOperandTextElement.innerText))
-        memoryOutput.innerText = localStorage.getItem('1')
+        localStorage.setItem('1', Number(tempStorage) + Number(currentOperandTextElement.innerText));
+        memoryOutput.innerText = localStorage.getItem('1');
     }
 
     if (event.target.hasAttribute('data-m-')) {
@@ -201,22 +199,22 @@ buttonsWrapper.addEventListener('click', (event) => {
 
         if (tempStorage === null) {
             localStorage.setItem('1', `-${currentOperandTextElement.innerText}`)
-            memoryOutput.innerText = localStorage.getItem('1')
+            memoryOutput.innerText = localStorage.getItem('1');
 
             return;
         }
 
-        localStorage.setItem('1', Number(tempStorage) - Number(currentOperandTextElement.innerText))
-        memoryOutput.innerText = localStorage.getItem('1')
+        localStorage.setItem('1', Number(tempStorage) - Number(currentOperandTextElement.innerText));
+        memoryOutput.innerText = localStorage.getItem('1');
     }
 
     if (event.target.hasAttribute('data-mc')) {
         localStorage.removeItem('1')
-        memoryOutput.innerText = localStorage.getItem('1')
+        memoryOutput.innerText = localStorage.getItem('1');
     }
 
     if (event.target.hasAttribute('data-mr')) {
-        currentOperandTextElement.innerText = localStorage.getItem('1')
+        currentOperandTextElement.innerText = localStorage.getItem('1');
         calculator.appendNumber(currentOperandTextElement.innerText)
     }
 })
@@ -225,13 +223,13 @@ bookMark.addEventListener('click', (event) => {
     if (localStorage.key(0) !== 'bookMark') {
         event.preventDefault()
         localStorage.setItem('bookMark', document.location)
-        bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`
+        bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`;
 
         return;
     }
 
     bookMark.innerHTML = `добавлено в localstorege, для перехода, нажмите еще раз`;
-    window.open(localStorage.getItem('bookMark'));
+    window.open(localStorage.getItem('bookMark'))
 })
 
 if (localStorage.key(0) === 'bookMark') {
