@@ -13,6 +13,8 @@
         <a href="#" data-bookmark>добавить в закладки</a>
         <a href="https://calculator888.ru/">calculator888.ru</a>
       </section>
+      <h4>memory-buffer</h4>
+      <section data-memory-output class="memory-output"></section>
       <section class="output">
         <div
           data-previous-operand
@@ -28,6 +30,15 @@
         ></div>
       </section>
       <section class="buttons">
+        <div class="row-wrapper memory-row">
+          <button data-mc class="memory-btn mc">mc</button>
+          <button data-mr class="memory-btn mr">mr</button>
+          <button data-m+ class="memory-btn">m+</button>
+          <button data-m- class="memory-btn">m-</button>
+          <button data-memory-buffer class="memory-btn memoru-buffer-btn">
+            M1
+          </button>
+        </div>
         <div class="row-wrapper">
           <button data-number class="btn number">7</button>
           <button data-number class="btn number">8</button>
@@ -46,7 +57,7 @@
           <button data-number class="btn number">1</button>
           <button data-number class="btn number">2</button>
           <button data-number class="btn number">3</button>
-          <button data-operation class="btn operator">-</button>
+          <button data-minus class="btn operator">-</button>
           <button class="btn"></button>
         </div>
         <div class="row-wrapper">

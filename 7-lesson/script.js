@@ -4,6 +4,8 @@ const buttonsWrapper = document.querySelector('.buttons');
 const previousOperandTextElement = document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
 const bookMark = document.querySelector('[data-bookmark]');
+const memoryOutput = document.querySelector('[data-memory-output]');
+const memoryBufferBtn = document.querySelector('[data-memory-buffer]')
 
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
@@ -32,8 +34,18 @@ class Calculator {
             return;
         }
 
-        this.currentOperand = this.currentOperand + number;
-        this.currentOperand = parseFloat(Number(this.currentOperand).toFixed(8)).toString();
+        if (number === '-') {
+
+            if (this.currentOperand === '-') {
+                return;
+            }
+
+            this.currentOperand = number
+            return;
+        }
+
+        this.currentOperand = this.currentOperand + number
+        this.currentOperand = parseFloat(Number(this.currentOperand).toFixed(8)).toString()
     }
 
 
@@ -84,7 +96,7 @@ class Calculator {
                 return;
         }
 
-        this.currentOperand = computation.toFixed(8);
+        this.currentOperand = parseFloat(Number(computation).toFixed(8)).toString()
         this.operation = '';
         this.previousOperand = '';
     }
@@ -129,15 +141,21 @@ buttonsWrapper.addEventListener('click', (event) => {
         return;
     }
 
-    if (event.target.hasAttribute('data-change-number')) {
-        calculator.signChange()
-        calculator.updateDisplay()
+    if (event.target.hasAttribute('data-minus')) {
 
-        return;
+        if (currentOperandTextElement.innerText !== '' && currentOperandTextElement.innerText !== '-') {
+            calculator.chooseOperation(event.target.innerText)
+            calculator.updateDisplay()
+
+            return;
+        }
+
+        calculator.appendNumber(event.target.innerText)
+        calculator.updateDisplay()
     }
 
-    if (event.target.hasAttribute('data-equals')) {
-        calculator.compute()
+    if (event.target.hasAttribute('data-change-number')) {
+        calculator.signChange()
         calculator.updateDisplay()
 
         return;
@@ -163,6 +181,44 @@ buttonsWrapper.addEventListener('click', (event) => {
 
         return;
     }
+
+    if (event.target.hasAttribute('data-m+')) {
+        const tempStorage = localStorage.getItem('1');
+
+        if (tempStorage === null) {
+            localStorage.setItem('1', currentOperandTextElement.innerText)
+            memoryOutput.innerText = localStorage.getItem('1')
+
+            return;
+        }
+
+        localStorage.setItem('1', Number(tempStorage) + Number(currentOperandTextElement.innerText))
+        memoryOutput.innerText = localStorage.getItem('1')
+    }
+
+    if (event.target.hasAttribute('data-m-')) {
+        const tempStorage = localStorage.getItem('1');
+
+        if (tempStorage === null) {
+            localStorage.setItem('1', `-${currentOperandTextElement.innerText}`)
+            memoryOutput.innerText = localStorage.getItem('1')
+
+            return;
+        }
+
+        localStorage.setItem('1', Number(tempStorage) - Number(currentOperandTextElement.innerText))
+        memoryOutput.innerText = localStorage.getItem('1')
+    }
+
+    if (event.target.hasAttribute('data-mc')) {
+        localStorage.removeItem('1')
+        memoryOutput.innerText = localStorage.getItem('1')
+    }
+
+    if (event.target.hasAttribute('data-mr')) {
+        currentOperandTextElement.innerText = localStorage.getItem('1')
+        calculator.appendNumber(currentOperandTextElement.innerText)
+    }
 })
 
 bookMark.addEventListener('click', (event) => {
@@ -183,7 +239,45 @@ if (localStorage.key(0) === 'bookMark') {
 }
 
 
+
+
 //bookmarks
+
+// function bookmark(ua) {
+//     const title = document.title;
+//     const url = document.location;
+//     window.external.AddFavorite(url, title)
+//     window.sidebar.addPanel(title, url, "")
+//     typeof opera === 'object'
+//     if (window.sidebar) {
+//         // Firefox
+//         window.sidebar.addPanel(title, url, '');
+//     }
+//     else if (window.opera && window.print) {
+//         // Opera
+//         var elem = document.createElement('a');
+//         elem.setAttribute('href', url);
+//         elem.setAttribute('title', title);
+//         elem.setAttribute('rel', 'sidebar');
+//         elem.click(); //this.title=document.title;
+//     }
+//     else if (document.all) {
+//         // ie
+//         window.external.AddFavorite(url, title);
+//     }
+// }
+
+// function AddToFavorites(siteTitle, siteURL) {
+//     if (window.sidebar) {
+//         window.sidebar.addPanel(siteTitle, siteURL, "");
+//     }
+//     else if (document.all) {
+//         window.external.AddFavorite(siteURL, siteTitle);
+//     }
+//     else if (window.opera && window.print) {
+//         return true;
+//     }
+// }
 
 // function bookmark(title, url) {
 //     if (window.sidebar) {
@@ -203,4 +297,3 @@ if (localStorage.key(0) === 'bookMark') {
 //         window.external.AddFavorite(url, title);
 //     }
 // }
-
